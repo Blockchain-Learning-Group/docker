@@ -22,3 +22,4 @@ RUN apt-get install tmux
 WORKDIR /blg/wallet-template
 
 COPY proof_of_work_mining.py /blg
+COPY live_chain_pow_mining.py /blg
