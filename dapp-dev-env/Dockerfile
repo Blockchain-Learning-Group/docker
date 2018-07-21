@@ -7,7 +7,8 @@ FROM node:8.7.0
 
 # Install npm packages, testrpc and truffle
 RUN npm install -g ethereumjs-testrpc@4.1.3
-RUN npm install -g truffle@3.4.11
+RUN npm install -g truffle@4.1.13
+RUN npm install -g original-require@1.0.1
 
 RUN apt-get update
 
