@@ -5,8 +5,8 @@ MAINTAINER Adam Lemmon "adam@blockchainlearninggroup.com"
 # Install Nodejs and npm
 FROM node:8.7.0
 
-# Install npm packages, testrpc and truffle
-RUN npm install -g ethereumjs-testrpc@4.1.3
+# Install npm packages, ganache-cli and truffle
+RUN npm install -g ganache-cli@6.0.3
 RUN npm install -g truffle@4.1.13
 RUN npm install -g original-require@1.0.1
 
