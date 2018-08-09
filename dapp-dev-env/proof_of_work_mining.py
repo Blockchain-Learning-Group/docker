@@ -50,6 +50,6 @@ if __name__ == '__main__':
     mining_time = t.interval
 
     print('Block Target:   ', '{0:#0{1}x}'.format(solution['target'], 66))
-    print('Solution Nonce: ', '{0:#0{1}x}'.format(solution['nonce'], 66))
+    print('Solution Nonce: ', solution['nonce'])
     print('Solution Hash:  ', '{0:#0{1}x}'.format(solution['hash'], 66))
     print('Mining the block took %.09f sec.' % mining_time)
