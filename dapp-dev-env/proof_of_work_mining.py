@@ -1,4 +1,3 @@
-
 from sha3 import keccak_256
 import sys
 import time
@@ -6,6 +5,9 @@ import time
 
 def mine_block(difficulty):
     target = 2**256 // difficulty
+
+    # Pad the number to 32 bytes, 64 hex, withe leading 0x
+    print('New block target:', '{0:#0{1}x}'.format(target, 66))
 
     # Randomly guess numbers
     for i in range(100000000):
@@ -17,8 +19,11 @@ def mine_block(difficulty):
 
         # Answer found return the solution
         if int_hash <= target:
-            print('\n\nBlock found!! The solution is:', i)
-            return int_hash
+            return {
+                'nonce': i,
+                'hash': int_hash,
+                'target': target
+            }
 
     return bytes(0)
 
@@ -35,30 +40,16 @@ class Timer:
 
 
 if __name__ == '__main__':
-    # The answer for the next block is presented to all miners
+    # Difficulty is computed... simulated with command line arg
     difficulty = int(sys.argv[1])
-    target = 2**256 // difficulty
 
-    # Pad the number to 32 bytes, 64 hex, withe leading 0x
-    print('New block target:', '{0:#0{1}x}'.format(target, 66))
-
-    # Miners race to find the solution
+    # Miner races to find the solution
     with Timer() as t:
        solution = mine_block(difficulty)
 
     mining_time = t.interval
 
-    # All nodes in the network then validate this solution
-    with Timer() as t:
-        is_valid = target >= solution
-
-    if is_valid:
-        validating_time = t.interval
-        print('Block Target:', '{0:#0{1}x}'.format(target, 66))
-        print('Solution:    ', '{0:#0{1}x}'.format(solution, 66))
-        print('Mining the block took %.09f sec.' % mining_time)
-        print('Validating the block solution took %.09f sec.' % validating_time)
-        print('Mining took %.00f times longer!' % (mining_time / validating_time))
-
-    else:
-        print('Not a valid solution!')
+    print('Block Target:   ', '{0:#0{1}x}'.format(solution['target'], 66))
+    print('Solution Nonce: ', '{0:#0{1}x}'.format(solution['nonce'], 66))
+    print('Solution Hash:  ', '{0:#0{1}x}'.format(solution['hash'], 66))
+    print('Mining the block took %.09f sec.' % mining_time)
